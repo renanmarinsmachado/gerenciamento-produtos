@@ -10,9 +10,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedAttributeNode;
-import javax.persistence.NamedEntityGraph;
-import javax.persistence.NamedEntityGraphs;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -26,7 +23,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @Table(name="category")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-@NamedEntityGraphs(@NamedEntityGraph(name = "Category.products", attributeNodes = @NamedAttributeNode("products")))
 public class Category implements Serializable{
 
 	/**
