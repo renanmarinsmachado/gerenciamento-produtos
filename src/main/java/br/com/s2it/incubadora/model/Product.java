@@ -19,16 +19,15 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.DynamicUpdate;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 /**
  * Created by root on 10/08/15.
  */
 @Entity
 @Table(name = "product")
-@DynamicUpdate
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Product implements Serializable{
 
@@ -56,7 +55,7 @@ public class Product implements Serializable{
     @Column(name="date_creation")
     private Date dateCreation;
     
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(cascade = {CascadeType.ALL}, fetch=FetchType.EAGER)
     @JoinColumn(name="category_id")
     private Category category;
 
@@ -114,10 +113,17 @@ public class Product implements Serializable{
 	}
 
 	public Category getCategory() {
+		resolveRecursion();
 		return category;
 	}
 
 	public void setCategory(Category category) {
 		this.category = category;
+	}
+	
+	public void resolveRecursion(){
+		if(this.category != null){			
+			this.category.setProducts(null);
+		}
 	}
 }

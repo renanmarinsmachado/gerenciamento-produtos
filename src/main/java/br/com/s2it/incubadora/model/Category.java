@@ -6,18 +6,27 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
+import javax.persistence.NamedEntityGraphs;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Entity
 @Table(name="category")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
+@NamedEntityGraphs(@NamedEntityGraph(name = "Category.products", attributeNodes = @NamedAttributeNode("products")))
 public class Category implements Serializable{
 
 	/**
@@ -25,6 +34,12 @@ public class Category implements Serializable{
 	 */
 	private static final long serialVersionUID = -2751367897394166021L;
 
+	public Category() {}
+	
+	public Category(int id) {
+		this.id = id;
+	}
+	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="category_id")
@@ -33,10 +48,10 @@ public class Category implements Serializable{
     @Column(name="description")
     private String description;
     
-    @Transient
-    @OneToMany(mappedBy="category")
-    private List<Product> produtos;
-
+    @OneToMany(mappedBy="category", fetch=FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<Product> products;
+    
 	public int getId() {
 		return id;
 	}
@@ -53,15 +68,24 @@ public class Category implements Serializable{
 		this.description = description;
 	}
 
-	public List<Product> getProdutos() {
-		if (produtos == null) {
-			produtos = new ArrayList<Product>();
+	public List<Product> getProducts() {
+		if (products == null) {
+			products = new ArrayList<Product>();
 		}
-
-		return produtos;
+		resolveRecursion();
+		
+		return products;
 	}
 
-	public void setProdutos(List<Product> produtos) {
-		this.produtos = produtos;
+	public void setProducts(List<Product> products) {
+		this.products = products;
+	}
+
+	public void resolveRecursion(){
+		if(this.products != null){			
+			for(int i=0;i<this.products.size();i++){
+				this.products.get(i).setCategory(null);
+			}
+		}
 	}
 }

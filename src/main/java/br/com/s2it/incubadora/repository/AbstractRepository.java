@@ -14,7 +14,7 @@ public abstract class AbstractRepository {
 	}
 	
 	public void persist(Object entity) {
-        getSession().persist(entity);
+        getSession().saveOrUpdate(entity);
     }
 	
 	public void update(Object entity) {

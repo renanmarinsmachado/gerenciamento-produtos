@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.s2it.incubadora.model.Category;
 import br.com.s2it.incubadora.model.Product;
 import br.com.s2it.incubadora.repository.ProductRepository;
 
@@ -32,6 +33,10 @@ public class ProductService {
 		repository.delete(product);
 	}
 	
+	public List<Product> findByCategory(Category category){
+		return repository.findByCategory(category);
+	}
+	
 	public boolean canRemove(int id){
 		
 		Product product = null;
@@ -39,7 +44,7 @@ public class ProductService {
 		try {
 			product = (Product) repository.findById(id);
 		} catch (Exception e) {
-			return true;
+			return false;
 		}
 		
 		if(product != null){

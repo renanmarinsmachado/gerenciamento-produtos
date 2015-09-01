@@ -17,6 +17,9 @@ public class CategoryService {
 	@Autowired
 	private CategoryRepository repository;
 	
+//	@Autowired
+//	private ProductService productService;
+	
 	public void save(Category category){
 		repository.persist(category);
 	}
@@ -29,11 +32,25 @@ public class CategoryService {
 		repository.delete(category);
 	}
 	
-	public List<Category> listAll(Category category){
+	public List<Category> listAll(){
 		return repository.listAll();
 	}
 	
 	public Category findByDescription(String description){
 		return repository.findByDescription(description);
+	}
+	
+	public Category findById(int id){
+		return (Category) repository.findById(id);
+	}
+	
+	public Category findByIdWithProducts(int id){
+		
+//		Category category = this.findById(id);
+//		category.setProdutos(productService.findByCategory(category));
+		
+		Category category = (Category) repository.findById(id);
+		
+		return category;
 	}
 }

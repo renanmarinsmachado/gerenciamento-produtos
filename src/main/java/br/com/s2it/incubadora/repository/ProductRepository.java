@@ -6,6 +6,7 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
+import br.com.s2it.incubadora.model.Category;
 import br.com.s2it.incubadora.model.Product;
 
 @Repository
@@ -22,6 +23,13 @@ public class ProductRepository extends AbstractRepository{
 		Criteria criteria = getSession().createCriteria(Product.class);
         criteria.add(Restrictions.eq("id",id));
         return criteria.uniqueResult();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Product> findByCategory(Category category) {
+		Criteria criteria = getSession().createCriteria(Product.class);
+        criteria.add(Restrictions.eq("category",category));
+        return criteria.list();
 	}
 	
 }
