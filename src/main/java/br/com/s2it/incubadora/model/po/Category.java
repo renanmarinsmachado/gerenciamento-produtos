@@ -1,4 +1,4 @@
-package br.com.s2it.incubadora.model;
+package br.com.s2it.incubadora.model.po;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,9 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -38,14 +35,13 @@ public class Category implements Serializable{
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="category_id")
+	@Column(name="category_id", nullable=false)
     private int id;
 
     @Column(name="description")
     private String description;
     
-    @OneToMany(mappedBy="category", fetch=FetchType.EAGER)
-    @Fetch(value = FetchMode.SUBSELECT)
+    @OneToMany(mappedBy="category", fetch=FetchType.LAZY)
     private List<Product> products;
     
 	public int getId() {
@@ -68,20 +64,11 @@ public class Category implements Serializable{
 		if (products == null) {
 			products = new ArrayList<Product>();
 		}
-		resolveRecursion();
 		
 		return products;
 	}
 
 	public void setProducts(List<Product> products) {
 		this.products = products;
-	}
-
-	public void resolveRecursion(){
-		if(this.products != null){			
-			for(int i=0;i<this.products.size();i++){
-				this.products.get(i).setCategory(null);
-			}
-		}
 	}
 }

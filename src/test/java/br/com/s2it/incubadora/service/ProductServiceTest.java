@@ -10,7 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import br.com.s2it.incubadora.model.Product;
+import br.com.s2it.incubadora.model.po.Product;
 import br.com.s2it.incubadora.repository.ProductRepository;
 
 @RunWith(MockitoJUnitRunner.class)

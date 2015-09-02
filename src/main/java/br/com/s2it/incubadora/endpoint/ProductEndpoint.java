@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.s2it.incubadora.model.Product;
+import br.com.s2it.incubadora.model.po.Product;
 import br.com.s2it.incubadora.service.ProductService;
 
 @RestController

@@ -5,6 +5,8 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import org.dozer.DozerBeanMapper;
+import org.dozer.Mapper;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -113,5 +115,10 @@ public class AppConfig extends WebMvcConfigurerAdapter{
         //Here we add our custom-configured HttpMessageConverter
         converters.add(jacksonMessageConverter());
         super.configureMessageConverters(converters);
+    }
+    
+    @Bean
+    public Mapper mapper(){
+    	return new DozerBeanMapper();
     }
 }

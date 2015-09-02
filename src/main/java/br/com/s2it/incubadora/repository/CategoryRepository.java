@@ -7,7 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import br.com.s2it.incubadora.model.Category;
+import br.com.s2it.incubadora.model.po.Category;
 
 @Repository
 public class CategoryRepository extends AbstractRepository{

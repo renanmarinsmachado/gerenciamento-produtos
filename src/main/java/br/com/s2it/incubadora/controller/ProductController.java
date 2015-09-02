@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import br.com.s2it.incubadora.model.Accessory;
-import br.com.s2it.incubadora.model.Category;
-import br.com.s2it.incubadora.model.Product;
+import br.com.s2it.incubadora.model.po.Accessory;
+import br.com.s2it.incubadora.model.po.Category;
+import br.com.s2it.incubadora.model.po.Product;
 import br.com.s2it.incubadora.service.CategoryService;
 import br.com.s2it.incubadora.service.ProductService;
 

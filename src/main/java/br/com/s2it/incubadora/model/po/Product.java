@@ -1,4 +1,4 @@
-package br.com.s2it.incubadora.model;
+package br.com.s2it.incubadora.model.po;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -46,20 +46,20 @@ public class Product implements Serializable{
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="product_id")
+	@Column(name="product_id", nullable=false)
     private int id;
 
-    @Column(name="description")
+    @Column(name="description", nullable=false)
     private String description;
     
     @Column(name="date_creation")
     private Date dateCreation;
     
     @ManyToOne(cascade = {CascadeType.ALL}, fetch=FetchType.EAGER)
-    @JoinColumn(name="category_id")
+    @JoinColumn(name="category_id", nullable=false)
     private Category category;
 
-    @Column(name="price")
+    @Column(name="price", nullable=false)
     private BigDecimal price;
     
     @ManyToMany(cascade = {CascadeType.ALL}, fetch=FetchType.EAGER)
@@ -113,17 +113,10 @@ public class Product implements Serializable{
 	}
 
 	public Category getCategory() {
-		resolveRecursion();
 		return category;
 	}
 
 	public void setCategory(Category category) {
 		this.category = category;
-	}
-	
-	public void resolveRecursion(){
-		if(this.category != null){			
-			this.category.setProducts(null);
-		}
 	}
 }

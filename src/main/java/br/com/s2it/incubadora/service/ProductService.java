@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.s2it.incubadora.model.Category;
-import br.com.s2it.incubadora.model.Product;
+import br.com.s2it.incubadora.model.po.Category;
+import br.com.s2it.incubadora.model.po.Product;
 import br.com.s2it.incubadora.repository.ProductRepository;
 
 @Service

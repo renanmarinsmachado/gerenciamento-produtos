@@ -6,8 +6,8 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import br.com.s2it.incubadora.model.Category;
-import br.com.s2it.incubadora.model.Product;
+import br.com.s2it.incubadora.model.po.Category;
+import br.com.s2it.incubadora.model.po.Product;
 
 @Repository
 public class ProductRepository extends AbstractRepository{

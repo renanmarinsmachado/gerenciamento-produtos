@@ -1,4 +1,4 @@
-package br.com.s2it.incubadora.model;
+package br.com.s2it.incubadora.model.po;
 
 import java.io.Serializable;
 

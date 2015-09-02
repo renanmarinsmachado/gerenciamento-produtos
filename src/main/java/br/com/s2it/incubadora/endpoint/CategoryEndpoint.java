@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import br.com.s2it.incubadora.model.Category;
-import br.com.s2it.incubadora.model.Product;
+import br.com.s2it.incubadora.model.dto.CategoryDTO;
+import br.com.s2it.incubadora.model.po.Category;
+import br.com.s2it.incubadora.model.po.Product;
 import br.com.s2it.incubadora.service.CategoryService;
+import br.com.s2it.incubadora.servicedozer.CategoryServiceDozer;
 
 @RestController
 @RequestMapping("/ed/category")
@@ -26,6 +28,9 @@ public class CategoryEndpoint {
 	
 	@Autowired
 	private CategoryService service;
+	
+	@Autowired
+	private CategoryServiceDozer serviceDozer;
 	
 	@RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> save(@RequestBody Category category){
@@ -47,9 +52,21 @@ public class CategoryEndpoint {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> findById(@PathVariable("id") int id) throws JsonProcessingException{
 		
-		Category category = service.findByIdWithProducts(id);
+//		Category category = service.findByIdWithProducts(id);
 		
-		return new ResponseEntity<Category>(category,HttpStatus.OK);
+		CategoryDTO category = serviceDozer.findById(id);
+		
+		return new ResponseEntity<CategoryDTO>(category,HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/{id}/products", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> findByIdWithProdcuts(@PathVariable("id") int id) throws JsonProcessingException{
+		
+//		Category category = service.findByIdWithProducts(id);
+		
+		CategoryDTO category = serviceDozer.findByIdWithProducts(id);
+		
+		return new ResponseEntity<CategoryDTO>(category,HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "", method = RequestMethod.PATCH, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
