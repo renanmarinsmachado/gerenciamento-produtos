@@ -2,11 +2,8 @@ package br.com.s2it.incubadora.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,8 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -55,18 +50,12 @@ public class Product implements Serializable{
     @Column(name="date_creation")
     private Date dateCreation;
     
-    @ManyToOne(cascade = {CascadeType.ALL}, fetch=FetchType.EAGER)
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="category_id")
     private Category category;
 
     @Column(name="price")
     private BigDecimal price;
-    
-    @ManyToMany(cascade = {CascadeType.ALL}, fetch=FetchType.EAGER)
-    @JoinTable(name = "product_acessory",
-    		joinColumns={@JoinColumn(name="product_id")},
-    		inverseJoinColumns={@JoinColumn(name="accessory_id")})
-    private List<Accessory> acessories;
 
     public void setId(int id){
         this.id = id;
@@ -92,18 +81,6 @@ public class Product implements Serializable{
         return price;
     }
 
-	public List<Accessory> getAcessories() {
-		if (acessories == null) {
-			acessories = new ArrayList<Accessory>();
-		}
-
-		return acessories;
-	}
-
-	public void setAcessories(List<Accessory> acessories) {
-		this.acessories = acessories;
-	}
-
 	public Date getDateCreation() {
 		return dateCreation;
 	}
@@ -113,17 +90,10 @@ public class Product implements Serializable{
 	}
 
 	public Category getCategory() {
-		resolveRecursion();
 		return category;
 	}
 
 	public void setCategory(Category category) {
 		this.category = category;
-	}
-	
-	public void resolveRecursion(){
-		if(this.category != null){			
-			this.category.setProducts(null);
-		}
 	}
 }

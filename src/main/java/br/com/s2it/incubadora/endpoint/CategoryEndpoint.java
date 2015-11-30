@@ -21,7 +21,7 @@ import br.com.s2it.incubadora.model.Product;
 import br.com.s2it.incubadora.service.CategoryService;
 
 @RestController
-@RequestMapping("/ed/category")
+@RequestMapping("/category")
 public class CategoryEndpoint {
 	
 	@Autowired
@@ -52,7 +52,7 @@ public class CategoryEndpoint {
 		return new ResponseEntity<Category>(category,HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "", method = RequestMethod.PATCH, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> update(@RequestBody Category category){
 		
 		service.update(category);

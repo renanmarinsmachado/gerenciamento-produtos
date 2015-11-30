@@ -16,7 +16,7 @@ import br.com.s2it.incubadora.model.Product;
 import br.com.s2it.incubadora.service.ProductService;
 
 @RestController
-@RequestMapping("/ed/product")
+@RequestMapping("/product")
 public class ProductEndpoint {
 
 	@Autowired
@@ -37,7 +37,7 @@ public class ProductEndpoint {
 		return new ResponseEntity<List<Product>>(listAll,HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "", method = RequestMethod.PATCH, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> update(@RequestBody Product product){
 		
 		service.update(product);
@@ -54,7 +54,7 @@ public class ProductEndpoint {
 	}
 	
 	@RequestMapping(value = "/remove/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> list(@PathVariable("id") int id){
+	public ResponseEntity<?> canRemove(@PathVariable("id") int id){
 		
 		HttpStatus status = HttpStatus.NOT_FOUND;
 		
